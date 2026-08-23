@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7940e7e3-b0f1-48f1-b212-4049b7b6ae0c</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.24.1-preview.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PMRost_Test.DAL.Migrations\PMRost_Test.DAL.Migrations.csproj" />
+    <ProjectReference Include="..\PMRost_Test.DAL.Mongo\PMRost_Test.DAL.Mongo.csproj" />
+    <ProjectReference Include="..\PMRost_Test.Features\PMRost_Test.Features.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\MockData\" />
+  </ItemGroup>
+
+</Project>
