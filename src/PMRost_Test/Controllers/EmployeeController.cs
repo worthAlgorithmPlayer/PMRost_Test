@@ -14,8 +14,7 @@ public sealed class EmployeeController : ApiController
     [HttpGet]
     [ProducesResponseType(typeof(ModelPagedResult<EmployeeModel>),
         StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> GetConversationMessagesAsync([FromQuery] EmployeeFilter filter,
+    public async Task<IActionResult> GetAllEmployeesAsync([FromQuery] EmployeeFilter filter,
         CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetAllEmployeesQuery(filter), cancellationToken);
