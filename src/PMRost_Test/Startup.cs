@@ -20,11 +20,12 @@ internal sealed class Startup
 
         services.AddEndpointsApiExplorer();
 
-        services.AddHttpClient();
+        services.AddFeaturesLayer(_configuration);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseMiddleware<ExceptionMiddleware>();
         app.UseRouting();
 
         app.UseSwagger();

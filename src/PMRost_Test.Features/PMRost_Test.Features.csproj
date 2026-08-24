@@ -7,11 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="Mediator.Abstractions" Version="3.0.2" />
+    <PackageReference Include="Mediator.SourceGenerator" Version="3.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PMRost_Test.Application.Contracts\PMRost_Test.Application.Contracts.csproj" />
+    <ProjectReference Include="..\PMRost_Test.Common\PMRost_Test.Common.csproj" />
+    <ProjectReference Include="..\PMRost_Test.DAL.Mongo\PMRost_Test.DAL.Mongo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TimeEntries\" />
   </ItemGroup>
 
 </Project>
