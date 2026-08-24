@@ -5,7 +5,7 @@ using PMRost_Test.Features.Employees;
 
 namespace PMRost_Test.Controllers;
 
-[Route("api/v1/employees")]
+[Route("api/employees")]
 public sealed class EmployeeController : ApiController
 {
     /// <summary>

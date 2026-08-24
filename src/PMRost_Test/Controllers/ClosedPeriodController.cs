@@ -4,7 +4,7 @@ using PMRost_Test.Features.ClosedPeriods;
 
 namespace PMRost_Test.Controllers;
 
-[Route("api/v1/periods")]
+[Route("api/periods")]
 public class ClosedPeriodController : ApiController
 {
     /// <summary>
