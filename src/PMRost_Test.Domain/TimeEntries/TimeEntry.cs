@@ -9,7 +9,8 @@ public sealed class TimeEntry : DomainEntity
     public Guid EmployeeId { get; private set; }
     public Guid ProjectId { get; private set; }
     public DateOnly TimesheetDate { get; private set;  }
-    public int Hours { get; set; }
+    public short HalfHours { get; private set; }
+    public decimal Hours => TimeAmount.ToHours(HalfHours);
     /// <summary>
     /// Актуальная на текущий момент ставка сотрудника
     /// </summary>
@@ -24,12 +25,13 @@ public sealed class TimeEntry : DomainEntity
     public DateTimeOffset CreatedAtUtc { get; private set; }
 
     private TimeEntry(Guid employeeId, Guid projectId, DateOnly timesheetDate,
-        int hours, decimal rateApplied, string? comment,
+        short halfHours, decimal rateApplied, string? comment,
         bool isOvertime, string createdBy)
     {
         EmployeeId = employeeId;
         ProjectId = projectId;
         TimesheetDate = timesheetDate;
+        HalfHours = halfHours;
         RateApplied = rateApplied;
         Comment = comment;
         IsOvertime = isOvertime;
@@ -40,7 +42,18 @@ public sealed class TimeEntry : DomainEntity
 
     internal static TimeEntry Create(
         Guid employeeId, Guid projectId, DateOnly timesheetDate,
-        int hours, decimal rateApplied, string? comment,
+        short halfHours, decimal rateApplied, string? comment,
         bool isOvertime, string createdBy)
-        => new(employeeId, projectId, timesheetDate, hours, rateApplied, comment, isOvertime, createdBy);
+        => new(employeeId, projectId, timesheetDate, halfHours, rateApplied, comment, isOvertime, createdBy);
+
+    internal void SetOvertime(bool isOvertime)
+    {
+        if (IsOvertime == isOvertime)
+        {
+            return;
+        }
+
+        IsOvertime = isOvertime;
+        Version++;
+    }
 }
