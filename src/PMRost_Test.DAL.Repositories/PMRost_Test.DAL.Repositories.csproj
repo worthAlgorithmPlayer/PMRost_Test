@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PMRost_Test.Application.Contracts\PMRost_Test.Application.Contracts.csproj" />
+    <ProjectReference Include="..\PMRost_Test.Common\PMRost_Test.Common.csproj" />
+    <ProjectReference Include="..\PMRost_Test.DAL.Mongo\PMRost_Test.DAL.Mongo.csproj" />
+  </ItemGroup>
+
 </Project>

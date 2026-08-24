@@ -1,4 +1,8 @@
 ﻿using PMRost_Test.DAL.Mongo;
+using PMRost_Test.DAL.Repositories;
+using PMRost_Test.Domain.TimeEntries.Services;
+using PMRost_Test.Features;
+using PMRost_Test.Middlewares;
 
 namespace PMRost_Test;
 
@@ -17,6 +21,8 @@ internal sealed class Startup
         services.AddSwaggerGen();
 
         services.AddPmRostTestContextMongo(_configuration);
+
+        services.AddRepositories();
 
         services.AddEndpointsApiExplorer();
 

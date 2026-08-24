@@ -9,13 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.24.1-preview.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PMRost_Test.Common\PMRost_Test.Common.csproj" />
     <ProjectReference Include="..\PMRost_Test.DAL.Migrations\PMRost_Test.DAL.Migrations.csproj" />
     <ProjectReference Include="..\PMRost_Test.DAL.Mongo\PMRost_Test.DAL.Mongo.csproj" />
+    <ProjectReference Include="..\PMRost_Test.DAL.Repositories\PMRost_Test.DAL.Repositories.csproj" />
     <ProjectReference Include="..\PMRost_Test.Features\PMRost_Test.Features.csproj" />
   </ItemGroup>
 
