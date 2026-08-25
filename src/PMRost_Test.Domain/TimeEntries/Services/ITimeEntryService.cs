@@ -2,12 +2,17 @@
 
 namespace PMRost_Test.Domain.TimeEntries.Services;
 
-internal interface ITimeEntryService
+public interface ITimeEntryService
 {
-    public TimeEntry Create(
+    public TimeEntryCreationResult Create(
         Employee employee,
         Project project,
         DateOnly date,
         decimal hours,
-        string? comment);
+        string? comment,
+        IReadOnlyCollection<TimeEntry> employeeEntriesOnSameDate,
+        bool isPeriodClosed,
+        string createdBy);
+
+    public void RecalculateOvertimeForDay(IReadOnlyCollection<TimeEntry> employeeEntriesOnSameDate);
 }

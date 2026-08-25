@@ -22,8 +22,4 @@
     <ProjectReference Include="..\PMRost_Test.DAL.Mongo\PMRost_Test.DAL.Mongo.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TimeEntries\" />
-  </ItemGroup>
-
 </Project>

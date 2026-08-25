@@ -5,7 +5,7 @@ namespace PMRost_Test.Domain;
 
 public sealed class Employee : DomainEntity
 {
-    private readonly List<EmployeeHourlyRate> _hourlyRates = new();
+    private List<EmployeeHourlyRate> _hourlyRates = new();
     /// <summary>
     /// ФИО пользователя
     /// </summary>
@@ -35,11 +35,33 @@ public sealed class Employee : DomainEntity
 
         return new Employee(fullName.Trim(), department.Trim());
     }
+
+    public EmployeeHourlyRate SetRate(decimal rate, DateOnly effectiveFrom)
+    {
+        if (_hourlyRates.Any(r => r.EffectiveFrom == effectiveFrom))
+        {
+            throw new InvalidOperationException(
+                $"У сотрудника уже есть ставка с датой начала действия {effectiveFrom:yyyy-MM-dd}");
+        }
+
+        var hourlyRate = EmployeeHourlyRate.Create(Id, rate, effectiveFrom);
+        _hourlyRates.Add(hourlyRate);
+        return hourlyRate;
+    }
+
+    public decimal? GetRateEffectiveOn(DateOnly date)
+    {
+        return _hourlyRates
+            .Where(r => r.EffectiveFrom <= date)
+            .OrderByDescending(r => r.EffectiveFrom)
+            .Select(r => (decimal?)r.Rate)
+            .FirstOrDefault();
+    }
 }
 /// <summary>
 ///  Cписок пар, ставка/дата
 /// </summary>
-public sealed class EmployeeHourlyRate : DomainEntity
+public sealed class EmployeeHourlyRate
 {
     public Guid EmployeeId { get; private set; }
     public decimal Rate { get; private set; }

@@ -12,6 +12,9 @@ public static class PMRostTestErrors
     public static EntityNotFoundException NotFound(string message) =>
         new(message);
 
+    public static ValidationException Validation(string message) =>
+        new(message);
+
     public static EntityAlreadyExistsException PeriodAlreadyClosed(int year, int month) =>
         new($"Закрытый период за {month}/{year} уже существует.");
 }

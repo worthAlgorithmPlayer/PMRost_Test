@@ -27,3 +27,9 @@ public sealed class EntityNotFoundException(string message)
 {
     public override string ErrorCode => "entity_not_found";
 }
+
+public sealed class ValidationException(string message)
+    : ExceptionBase(message, statusCode: 400)
+{
+    public override string ErrorCode => "bad_request";
+}

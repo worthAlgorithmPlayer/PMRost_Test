@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PMRost_Test.Common\PMRost_Test.Common.csproj" />
     <ProjectReference Include="..\PMRost_Test.Domain.Primitives\PMRost_Test.Domain.Primitives.csproj" />
   </ItemGroup>
 

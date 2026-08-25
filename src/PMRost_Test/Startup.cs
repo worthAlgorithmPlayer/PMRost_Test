@@ -20,6 +20,8 @@ internal sealed class Startup
 
         services.AddSwaggerGen();
 
+        services.AddScoped<ITimeEntryService, TimeEntryService>();
+
         services.AddPmRostTestContextMongo(_configuration);
 
         services.AddRepositories();

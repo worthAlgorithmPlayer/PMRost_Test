@@ -16,7 +16,7 @@ public sealed class TimeEntry : DomainEntity
     /// </summary>
     public decimal RateApplied { get; private set; }
     public string? Comment { get; private set;  }
-    public long Version { get; private set;  }
+    public int Version { get; private set;  }
     /// <summary>
     /// Логический флаг, отвечающий за переработку
     /// </summary>
@@ -54,6 +54,18 @@ public sealed class TimeEntry : DomainEntity
         }
 
         IsOvertime = isOvertime;
+        Touch();
+    }
+
+    public void Update(decimal hours, string? comment)
+    {
+        HalfHours = TimeAmount.ToHalfHours(hours);
+        Comment = comment;
+        Touch();
+    }
+
+    private void Touch()
+    {
         Version++;
     }
 }
