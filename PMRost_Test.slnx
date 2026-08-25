@@ -6,6 +6,7 @@
     <Project Path="src/PMRost_Test.DAL.Mongo/PMRost_Test.DAL.Mongo.csproj" Id="b2215073-7aad-4f46-8de1-c4357d034ac6" />
     <Project Path="src/PMRost_Test.DAL.Repositories/PMRost_Test.DAL.Repositories.csproj" Id="f2182062-5747-4562-9de2-80d4f8e8afc0" />
     <Project Path="src/PMRost_Test.Domain.Primitives/PMRost_Test.Domain.Primitives.csproj" Id="251c6d4f-3caf-4cd5-abce-05d821805d57" />
+    <Project Path="src/PMRost_Test.Domain.Tests/PMRost_Test.Domain.Tests.csproj" />
     <Project Path="src/PMRost_Test.Domain/PMRost_Test.Domain.csproj" Id="2576ed42-ad43-4a38-b44a-e8605e52e107" />
     <Project Path="src/PMRost_Test.Features/PMRost_Test.Features.csproj" Id="4aff2a22-f0f4-4427-a6eb-e7080c3922d6" />
     <Project Path="src/PMRost_Test/PMRost_Test.csproj" />
