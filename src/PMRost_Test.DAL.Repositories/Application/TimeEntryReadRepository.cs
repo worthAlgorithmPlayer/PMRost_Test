@@ -57,10 +57,12 @@ internal sealed class TimeEntryReadRepository : ITimeEntryReadRepository
                     EmployeeName = combined.employee.FullName,
                     ProjectNumber = project.Number,
                     TimesheetDate = combined.timeEntry.TimesheetDate,
-                    Hours = combined.timeEntry.HalfHours * 2,
+                    Comment = combined.timeEntry.Comment,
+                    Hours = (decimal)combined.timeEntry.HalfHours / 2m,
                     Rate = combined.timeEntry.RateApplied,
-                    Price = combined.timeEntry.HalfHours * 2 * combined.timeEntry.RateApplied,
+                    Price = ((decimal)combined.timeEntry.HalfHours / 2m) * combined.timeEntry.RateApplied,
                     Version = combined.timeEntry.Version,
+                    IsOvertime = combined.timeEntry.IsOvertime
                 })
             .OrderByDescending(x => x.TimesheetDate)
             .Skip(filter.Skip)
@@ -71,10 +73,12 @@ internal sealed class TimeEntryReadRepository : ITimeEntryReadRepository
                 EmployeeName = x.EmployeeName,
                 ProjectNumber = x.ProjectNumber,
                 TimeSheetDate = x.TimesheetDate,
+                Comment = x.Comment,
                 Hours = x.Hours,
                 Rate = x.Rate,
                 Price = x.Price,
-                Version = x.Version
+                Version = x.Version,
+                IsOvertime = x.IsOvertime
             })
             .ToListAsync(cancellationToken);
 
