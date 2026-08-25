@@ -1,0 +1,75 @@
+services:
+  mongo-db:
+    container_name: 'pmrost-mongo-db'
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: PMRostTest
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - pm
+
+  pmrost-back:
+    container_name: 'pmrost-api'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8080"
+      - "8091:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__MongoDb=mongodb://mongo-db:27017/PMRostTest
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - pm
+
+  # 3. Сервис одноразового сидирования данных (--seed)
+  pmrost-seeder:
+    container_name: 'pmrost-seeder'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["dotnet", "PMRost_Test.dll", "--seed"]
+    environment:
+      - ConnectionStrings__MongoDb=mongodb://mongo-db:27017/PMRostTest
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+      pmrost-back:
+        condition: service_started
+    restart: "no"
+    networks:
+      - pm
+
+  pmrost-client:
+    container_name: 'pmrost-client'
+    build:
+      context: ./src/client
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - pmrost-back
+    restart: unless-stopped
+    networks:
+      - pm
+
+volumes:
+  mongo_data:
+
+networks:
+  pm:
+    driver: bridge

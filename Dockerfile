@@ -12,11 +12,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PMRost_Test/PMRost_Test.csproj", "PMRost_Test/"]
-RUN dotnet restore "./PMRost_Test/PMRost_Test.csproj"
+
+# Копируем .csproj из папки src/PMRost_Test/
+COPY ["src/PMRost_Test/PMRost_Test.csproj", "src/PMRost_Test/"]
+RUN dotnet restore "src/PMRost_Test/PMRost_Test.csproj"
+
+# Копируем весь исходный код и собираем
 COPY . .
-WORKDIR "/src/PMRost_Test"
-RUN dotnet build "./PMRost_Test.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/PMRost_Test"
+RUN dotnet build "PMRost_Test.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
 FROM build AS publish

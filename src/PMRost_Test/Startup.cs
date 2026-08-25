@@ -3,6 +3,7 @@ using PMRost_Test.DAL.Repositories;
 using PMRost_Test.Domain.TimeEntries.Services;
 using PMRost_Test.Features;
 using PMRost_Test.Middlewares;
+using PMRost_Test.Services.MockData;
 
 namespace PMRost_Test;
 
@@ -27,16 +28,29 @@ internal sealed class Startup
         services.AddRepositories();
 
         services.AddEndpointsApiExplorer();
+        services.AddHttpClient();
 
         services.AddScoped<MockDataSeeder>();
 
         services.AddFeaturesLayer(_configuration);
+
+        ConfigureCors(services);
+    }
+
+    private static void ConfigureCors(IServiceCollection services)
+    {
+        services.AddCors(options => options.AddDefaultPolicy(policy =>
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseCors();
         app.UseRouting();
+
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseSwagger();
 
