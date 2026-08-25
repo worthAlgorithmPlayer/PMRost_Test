@@ -28,6 +28,8 @@ internal sealed class Startup
 
         services.AddEndpointsApiExplorer();
 
+        services.AddScoped<MockDataSeeder>();
+
         services.AddFeaturesLayer(_configuration);
     }
 

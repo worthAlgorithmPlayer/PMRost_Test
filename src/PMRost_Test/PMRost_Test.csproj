@@ -22,8 +22,4 @@
     <ProjectReference Include="..\PMRost_Test.Features\PMRost_Test.Features.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\MockData\" />
-  </ItemGroup>
-
 </Project>

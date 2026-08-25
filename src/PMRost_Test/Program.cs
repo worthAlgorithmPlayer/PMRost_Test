@@ -1,6 +1,7 @@
 using MongoDB.Driver;
 using PMRost_Test;
 using PMRost_Test.DAL.Migrations;
+using PMRost_Test.Services.MockData;
 
 public class Program
 {
@@ -14,6 +15,20 @@ public class Program
         {
             var database = scope.ServiceProvider.GetRequiredService<IMongoDatabase>();
             await MongoSchemaMigrator.MigrateSchema(database);
+        }
+
+        if (args.Contains("--seed"))
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var seeder = scope.ServiceProvider.GetRequiredService<MockDataSeeder>();
+
+                Console.WriteLine("--> Executing MockDataSeeder...");
+                await seeder.SeedAsync();
+                Console.WriteLine("--> MockDataSeeder finished successfully.");
+            }
+
+            return;
         }
 
         await host.RunAsync();
